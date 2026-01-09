@@ -1,0 +1,15 @@
+{
+  "candidates": [
+    {
+      "name": "Example Candidate",
+      "email": "example@company.com",
+      "company": "Example Corp",
+      "role": "ML Engineer",
+      "status": "Researching",
+      "lastContact": null,
+      "nextAction": null,
+      "notes": "This is an example entry. Delete it and add your own candidates.",
+      "source": "Manual"
+    }
+  ]
+}

@@ -65,9 +65,46 @@ Candidates where:
 - [Name] - [X days] - Consider: follow up or close out?
 ```
 
-## If Airtable is not configured
+## Data source
 
-Explain that this skill requires Airtable MCP to be set up. Point to the README for setup instructions.
+### Option 1: Airtable (if MCP is configured)
+
+Query the Candidates table in Airtable.
+
+### Option 2: Local JSON (fallback)
+
+If Airtable MCP is not available, read from `pipeline.json` in the project root:
+
+1. Read `pipeline.json`
+2. Parse the `candidates` array
+3. Calculate days since `lastContact` for each candidate
+4. Filter and sort according to the criteria above
+5. Display in the same format
+
+The JSON structure:
+```json
+{
+  "candidates": [
+    {
+      "name": "Jane Smith",
+      "email": "jane@example.com",
+      "company": "Anthropic",
+      "role": "ML Engineer",
+      "status": "Outreach Sent",
+      "lastContact": "2025-01-09",
+      "nextAction": "2025-01-16",
+      "notes": "Found via GitHub.",
+      "source": "GitHub"
+    }
+  ]
+}
+```
+
+### If neither is available
+
+If `pipeline.json` doesn't exist or is empty, explain that no candidates are being tracked yet. Suggest:
+- `/add-candidate [Name]` to start tracking someone
+- See README for Airtable setup if they want a more robust solution
 
 ## Actions to offer
 

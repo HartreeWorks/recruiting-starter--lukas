@@ -1,10 +1,10 @@
 ---
-description: Update a candidate's status in Airtable. Use after sending an email, having a call, or when their status changes.
+description: Update a candidate's status in your pipeline. Use after sending an email, having a call, or when their status changes.
 ---
 
 # Update candidate
 
-Update the Airtable record for **$ARGUMENTS** (candidate name, new status, and optionally notes).
+Update the record for **$ARGUMENTS** (candidate name, new status, and optionally notes).
 
 ## Expected input format
 
@@ -41,9 +41,29 @@ Examples:
    - Responded → +3 days (to reply)
    - Other statuses → clear or leave as-is
 
-## If Airtable is not configured
+## Data source
 
-Explain that this skill requires Airtable MCP to be set up. Point to the README for setup instructions.
+### Option 1: Airtable (if MCP is configured)
+
+Update the record in the Candidates table.
+
+### Option 2: Local JSON (fallback)
+
+If Airtable MCP is not available, update `pipeline.json`:
+
+1. Read `pipeline.json`
+2. Find the candidate by name (case-insensitive match)
+3. Update the fields:
+   - `status`: new status value
+   - `lastContact`: today's date (ISO format: "2025-01-09")
+   - `nextAction`: calculated based on status (see above)
+   - `notes`: append new notes to existing (with date prefix)
+4. Write the updated JSON back to `pipeline.json`
+
+Example notes format:
+```
+"notes": "Previous notes...\n\n[2025-01-09] New note added here"
+```
 
 ## Output format
 
@@ -57,7 +77,7 @@ Explain that this skill requires Airtable MCP to be set up. Point to the README 
 
 ## Error handling
 
-If the candidate isn't found in Airtable:
+If the candidate isn't found:
 1. Search for similar names (typos, partial matches)
-2. Offer to create a new record
+2. Offer to create a new record with `/add-candidate`
 3. If creating, ask for required fields (email, company)

@@ -6,11 +6,12 @@ A Claude Code project with skills to automate recruiting workflows. Clone it, co
 
 **Skills:**
 - `/lookup-candidate` - Research a candidate's background
-- `/draft-outreach` - Write a personalized recruiting email
+- `/draft-outreach` - Write a personalised recruiting email
 - `/draft-followup` - Write a follow-up email
 - `/find-email` - Find a candidate's email address
+- `/add-candidate` - Add someone to your pipeline
 - `/check-pipeline` - Review your candidate pipeline
-- `/update-candidate` - Update a candidate's status in Airtable
+- `/update-candidate` - Update a candidate's status
 
 **Templates:**
 - `templates/initial-outreach.md` - Example cold outreach email
@@ -18,20 +19,45 @@ A Claude Code project with skills to automate recruiting workflows. Clone it, co
 
 **Examples:**
 - `examples/airtable-schema.md` - Suggested Airtable base structure
+- `examples/exa-setup.md` - Enhanced research with Exa AI search
+
+**Data:**
+- `pipeline.json` - Local candidate tracking (no setup required)
 
 ## Prerequisites
 
 - [Claude Code](https://docs.anthropic.com/en/docs/claude-code) installed and working
 
-## Optional: Airtable MCP setup
+## Pipeline tracking
 
-The pipeline management skills (`/check-pipeline`, `/update-candidate`) work best with Airtable. Here's how to set it up.
+Two options for tracking candidates:
 
-### 1. Create an Airtable base
+### Option 1: Local JSON (no setup required)
+
+The repo includes `pipeline.json` - a simple JSON file that stores your candidates locally. The skills automatically use this if Airtable isn't configured.
+
+```bash
+# Add a candidate
+/add-candidate Jane Smith
+
+# Check your pipeline
+/check-pipeline
+
+# Update status
+/update-candidate Jane Smith "Outreach Sent"
+```
+
+The JSON file is human-readable and you can edit it directly if needed. Good for getting started or if you prefer keeping data local.
+
+### Option 2: Airtable (more features)
+
+For a more robust setup with views, filters, and collaboration, use Airtable.
+
+#### 1. Create an Airtable base
 
 Create a new base with a "Candidates" table. See `examples/airtable-schema.md` for the recommended schema.
 
-### 2. Get your Airtable credentials
+#### 2. Get your Airtable credentials
 
 1. Go to [airtable.com/create/tokens](https://airtable.com/create/tokens)
 2. Click "Create new token"
@@ -50,14 +76,14 @@ https://airtable.com/appXXXXXXXXXXXXXX/...
          This is your Base ID
 ```
 
-### 3. Install the Airtable MCP server
+#### 3. Install the Airtable MCP server
 
 ```bash
 # Using npx (no install needed)
 npx -y @airtable/mcp-server
 ```
 
-### 4. Configure Claude Code
+#### 4. Configure Claude Code
 
 Add to your `~/.claude.json` (or project `.claude.json`):
 
@@ -81,7 +107,7 @@ Or use environment variables:
 export AIRTABLE_API_KEY="your_token_here"
 ```
 
-### 5. Test it
+#### 5. Test it
 
 Restart Claude Code and try:
 ```
@@ -116,6 +142,18 @@ See the [Google Workspace MCP setup guide](https://wow.pjh.is/journal/claude-cod
 
 The skills will just output email text for you to copy and paste into Gmail.
 
+## Optional: Enhanced research with Exa
+
+The `/lookup-candidate` skill works with standard web search, but you can get much better results with [Exa](https://exa.ai) - an AI-powered search engine that's particularly good at finding information about people.
+
+With Exa configured, candidate research will find:
+- LinkedIn profiles more reliably
+- Academic papers and publications
+- GitHub profiles and open source work
+- Conference talks and presentations
+
+Setup takes ~10 minutes. See `examples/exa-setup.md` for instructions.
+
 ## Customisation
 
 **Edit these files to match your needs:**
@@ -129,6 +167,9 @@ The skills will just output email text for you to copy and paste into Gmail.
 ```bash
 # Research a candidate
 /lookup-candidate Jane Smith
+
+# Add them to your pipeline
+/add-candidate Jane Smith
 
 # Find their email
 /find-email Jane Smith Anthropic
@@ -149,6 +190,7 @@ The skills will just output email text for you to copy and paste into Gmail.
 ## Tips
 
 - Start with `/lookup-candidate` to research someone before reaching out
-- The skills work without Airtable - you just won't have pipeline tracking
+- Pipeline tracking works out of the box with `pipeline.json` - no setup required
+- Upgrade to Airtable later if you want views, filters, and collaboration
 - Edit templates based on what gets responses
 - Add notes to candidate records to help with future personalisation

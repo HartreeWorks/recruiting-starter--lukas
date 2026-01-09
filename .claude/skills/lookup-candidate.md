@@ -6,9 +6,29 @@ description: Research a candidate's background for recruiting outreach. Use when
 
 Research **$ARGUMENTS** (candidate name, optionally with company) and compile a summary useful for recruiting outreach.
 
+## Search method
+
+### If Exa MCP is available (recommended)
+
+Use Exa's AI-powered search for more comprehensive results. Exa is better at:
+- Finding LinkedIn profiles
+- Surfacing academic papers
+- Locating GitHub profiles
+- Finding personal websites and blogs
+
+Run multiple targeted Exa searches:
+1. `[Name] [Company] LinkedIn profile`
+2. `[Name] research papers publications`
+3. `[Name] GitHub developer`
+4. `[Name] [Company] interview talk presentation`
+
+### Fallback: Standard web search
+
+If Exa is not available, use standard web search. Results may be less comprehensive.
+
 ## What to find
 
-Search the web for:
+Search for:
 
 1. **Current role** - Where they work, what they do, how long they've been there
 2. **Background** - Previous roles, education, career trajectory
@@ -56,6 +76,11 @@ Present findings in this structure:
 - If information is sparse, note what couldn't be found
 - Don't make up information - only include what you can verify
 
-## If Airtable is available
+## After researching
 
-After researching, offer to create or update a candidate record in Airtable with the findings.
+Offer to save the findings:
+
+- **If Airtable MCP is available**: Create or update a candidate record in Airtable
+- **If using local JSON**: Create or update an entry in `pipeline.json` via `/add-candidate` or `/update-candidate`
+
+This keeps research organised and available for drafting outreach later.
