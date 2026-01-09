@@ -92,9 +92,29 @@ If Airtable is configured correctly, it will query your candidates table.
 
 ## Optional: Gmail setup
 
-If you want `/draft-outreach` to create Gmail drafts directly, set up the Google Workspace MCP server. See the [Google Workspace MCP documentation](https://github.com/anthropics/anthropic-quickstarts/tree/main/mcp-server-google-workspace).
+Two options for sending emails directly from Claude Code:
 
-Without Gmail MCP, the skills will just output the email text for you to copy.
+### Option 1: Send-email skill (recommended)
+
+The easiest approach - takes ~5 minutes to set up. Uses Gmail's SMTP servers.
+
+1. Clone the skill into your `.claude/skills/` folder:
+   ```bash
+   git clone https://github.com/HartreeWorks/skill--send-email.git .claude/skills/send-email
+   ```
+2. Follow the setup instructions in that repo to configure Gmail SMTP credentials
+
+Then you can use `/send-email` to send emails directly.
+
+### Option 2: Google Workspace MCP
+
+A more comprehensive integration that also gives you calendar, drive, and other Google services. Takes ~20 minutes to set up.
+
+See the [Google Workspace MCP setup guide](https://wow.pjh.is/journal/claude-code-google-workspace-mcp).
+
+### Without email integration
+
+The skills will just output email text for you to copy and paste into Gmail.
 
 ## Customisation
 
